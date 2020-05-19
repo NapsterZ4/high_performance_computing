@@ -1,22 +1,28 @@
 #include <stdio.h>
-#include "math.h"
+#include <math.h>
 
-int tamArray(int n[]){
-    size_t a = (int) (sizeof(n) - 1);
-    return a;
-}
+double *tSerial(double n[7]){
+    static double result[7];
 
-int tSerial(int n[]){
-    int tam = tamArray(n);
-
-    for (int i = 0; i <= tam; ++i){
-
+    for (int i = 0; i <= 7; ++i){
+        result[i] = pow(n[i], 2.0);
     }
+
+    for(int j = 0; j <= 7; ++j){
+        printf("%f\n", result[j]);
+    }
+
+    return result;
 }
 
 int main(int argc,  char * argv[]) {
-    int n[6] = {10, 20, 30, 40, 80, 160, 320};
-    int p[6] = {1,2,4,8,16,32,64,128};
-    tSerial(n);
+    //Napster
+    double n[7] = {10.0, 20.0, 30.0, 40.0, 80.0, 160.0, 320.0};
+    double p[8] = {1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0};
+
+    double * tSerialResult = tSerial(n);
+
+
+
     return 0;
 }
