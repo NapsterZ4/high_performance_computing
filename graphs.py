@@ -1,22 +1,19 @@
 import pandas as pd
 import seaborn as sns
 
-df_serial = pd.read_csv("serial.txt", sep=" ", names=["iteration", "value_serial"])
-df_parallel = pd.read_csv("parallel.txt", sep=" ", names=["iteration", "value_parallel"])
-df_serial = pd.DataFrame(df_serial)
-df_parallel = pd.DataFrame(df_parallel)
+workers = {'workers':[1, 2, 4, 8, 16, 32, 64, 128]}
+df_speedup = pd.read_csv("files/speedup.txt", sep=" ", names=["iteration", "speedup"])
+df_efficiency = pd.read_csv("files/efficiency.txt", sep=" ", names=["iteration", "efficiency"])
 
-df = pd.concat([df_serial["value_serial"], df_parallel], axis=1)
+df_pworkers = pd.DataFrame(workers)
+
+df = pd.concat([df_pworkers, df_speedup["speedup"], df_efficiency["efficiency"]], axis=1)
 
 sns.set()
-g1 = sns.regplot(x="iteration", y="value_serial", data=df)
+g1 = sns.lineplot(x="workers", y="speedup", data=df)
 fig = g1.get_figure()
-fig.savefig("value_serial.png")
+fig.savefig("images/speedup.png")
 
-g2 = sns.regplot(x="iteration", y="value_parallel", data=df)
+g2 = sns.lineplot(x="workers", y="efficiency", data=df)
 fig2 = g2.get_figure()
-fig2.savefig("value_parallel.png")
-
-g3 = sns.regplot(x="value_serial", y = "value_parallel", data=df)
-fig3 = g3.get_figure()
-fig3.savefig("all_values.png")
+fig2.savefig("images/efficiency.png")
