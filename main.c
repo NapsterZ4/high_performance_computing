@@ -2,17 +2,23 @@
 #include <math.h>
 
 double *tSerial(double n[7]){
-    static double result[7];
+    static double resultSerial[7];
 
-    for (int i = 0; i <= sizeof(result); ++i){
-        result[i] = pow(n[i], 2.0);
+    for (int i = 0; i <= 7; ++i){
+        resultSerial[i] = pow(n[i], 2.0);
     }
 
-    for(int j = 0; j <= sizeof(result); ++j){
-        printf("%f\n", result[j]);
+    return resultSerial;
+}
+
+double *tParallel(double p[8]){
+    static double resultParallel[8];
+
+    for (int i = 0; i <= 8; ++i){
+        resultParallel[i] = pow(p[i], 2.0) / (pow(p[i], 2.0) / p[i] + log2(p[i]));
     }
 
-    return result;
+    return resultParallel;
 }
 
 int main(int argc,  char * argv[]) {
@@ -21,9 +27,18 @@ int main(int argc,  char * argv[]) {
     double p[8] = {1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0};
 
     double *tSerialResult = tSerial(n);
+    double *tParallelResult = tParallel(p);
 
-    for (int i=0; i < sizeof(tSerialResult); ++i){
+    printf("********Serial Result*********\n");
+
+    for (int i=0; i < 7; ++i){
         printf("%f\n", tSerialResult[i]);
+    }
+
+    printf("\n********Parallel Result***********\n");
+
+    for (int i = 0; i < 8; ++i){
+        printf("%f\n", tParallelResult[i]);
     }
 
     return 0;
