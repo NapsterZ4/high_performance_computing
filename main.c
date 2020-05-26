@@ -1,9 +1,5 @@
 #include <stdio.h>
 #include <math.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define MAX_LINE 100
 
 void *results(){
     double n[6] = {10.0, 20.0, 40.0, 80.0, 160.0, 320.0};
